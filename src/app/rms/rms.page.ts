@@ -145,6 +145,7 @@ export class RmsPage implements OnDestroy, OnInit {
     }));
 
     const best = [Infinity, Infinity, Infinity, Infinity];
+    const personalBests: number[] = [];
     const events = merge(
       session.grid.pipe(
         map(obs => obs.pipe(pairwise())),
@@ -157,9 +158,10 @@ export class RmsPage implements OnDestroy, OnInit {
               if (curr.laps >= 3) {
                 events.push([index ? 'bests' + index : 'bestlap', curr.id]);
               }
-              if (index === 0 && time) {
-                this.raceboard.sendBestLap(curr.id, time);
-              }
+            }
+            if (index === 0 && time && time < (personalBests[curr.id] || Infinity)) {
+              personalBests[curr.id] = time;
+              this.raceboard.sendBestLap(curr.id, time);
             }
           });
           if (!curr.finished && curr.time) {
