@@ -1,0 +1,16 @@
+services:
+  openlap:
+    build: .
+    restart: unless-stopped
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.openlap.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.openlap.entrypoints=${TRAEFIK_ENTRYPOINT}"
+      - "traefik.http.services.openlap.loadbalancer.server.port=80"
+
+networks:
+  proxy:
+    external: true
+    name: ${DOCKER_NETWORK}

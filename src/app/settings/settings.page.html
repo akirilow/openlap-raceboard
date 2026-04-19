@@ -41,6 +41,19 @@
       <ion-label>{{'Reset settings' | translate}}</ion-label>
     </ion-item>
     <ion-list-header>
+      <ion-label>RaceBoard</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-input
+        label="URL"
+        labelPlacement="stacked"
+        type="url"
+        placeholder="http://raceboard.localhost/api/smartrace/lap"
+        [value]="raceboardUrl"
+        (ionChange)="updateRaceboardUrl($event)">
+      </ion-input>
+    </ion-item>
+    <ion-list-header>
       <ion-label>{{'About' | translate}}</ion-label>
     </ion-list-header>
     <ion-item routerLink="/settings/about">

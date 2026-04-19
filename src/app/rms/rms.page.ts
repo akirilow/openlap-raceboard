@@ -11,7 +11,7 @@ import { debounceTime, distinctUntilChanged, filter, map, mergeMap, pairwise, sh
 
 import { AppSettings, Options, RaceOptions } from '../app-settings';
 import { ControlUnit } from '../carrera';
-import { AppService, ControlUnitService, LoggingService, SpeechService, I18nAlertService } from '../services';
+import { AppService, ControlUnitService, LoggingService, RaceboardService, SpeechService, I18nAlertService } from '../services';
 
 import { LeaderboardItem } from './leaderboard';
 import { RmsMenu } from './rms.menu';
@@ -58,7 +58,8 @@ export class RmsPage implements OnDestroy, OnInit {
   constructor(public cu: ControlUnitService, private app: AppService,
     private logger: LoggingService, private settings: AppSettings, private speech: SpeechService,
     private popover: PopoverController, private translate: TranslateService, route: ActivatedRoute,
-    private alertCtrl: AlertController, private menuCtrl: MenuController, private modalCtrl: ModalController, private alert: I18nAlertService,)
+    private alertCtrl: AlertController, private menuCtrl: MenuController, private modalCtrl: ModalController, private alert: I18nAlertService,
+    private raceboard: RaceboardService)
   {
     const mode = route.snapshot.paramMap.get('mode');
     switch (mode) {
@@ -155,6 +156,9 @@ export class RmsPage implements OnDestroy, OnInit {
               best[index] = time;
               if (curr.laps >= 3) {
                 events.push([index ? 'bests' + index : 'bestlap', curr.id]);
+              }
+              if (index === 0 && time) {
+                this.raceboard.sendBestLap(curr.id, time);
               }
             }
           });

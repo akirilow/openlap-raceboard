@@ -1,3 +1,13 @@
+2.7.0 2026-04-19
+----------------
+
+- Add RaceBoard integration: send best lap times via HTTP POST.
+
+- Add RaceBoard URL setting in settings page.
+
+- Add Docker setup with Traefik support.
+
+
 2.6.0 2026-04-04
 ----------------
 

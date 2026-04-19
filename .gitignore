@@ -1,3 +1,5 @@
+.env
+CLAUDE.md
 /.angular/cache
 .gradle/
 .sourcemaps/

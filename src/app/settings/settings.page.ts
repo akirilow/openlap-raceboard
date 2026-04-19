@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AppSettings, Options } from '../app-settings';
-import { I18nAlertService, SpeechService } from '../services';
+import { I18nAlertService, RaceboardService, SpeechService } from '../services';
 
 @Component({
     templateUrl: 'settings.page.html',
@@ -12,15 +12,17 @@ import { I18nAlertService, SpeechService } from '../services';
 export class SettingsPage implements OnDestroy, OnInit {
 
   options = new Options();
+  raceboardUrl = '';
 
   private subscription: Subscription;
 
-  constructor(private alert: I18nAlertService, private settings: AppSettings, private speech: SpeechService) {}
+  constructor(private alert: I18nAlertService, private settings: AppSettings, private speech: SpeechService, private raceboard: RaceboardService) {}
 
   ngOnInit() {
     this.subscription = this.settings.getOptions().subscribe(options => {
       this.options = options;
     });
+    this.raceboardUrl = this.raceboard.getUrl();
   }
 
   ngOnDestroy() {
@@ -38,6 +40,11 @@ export class SettingsPage implements OnDestroy, OnInit {
         handler: () => { this.settings.clear(); }
       }]
     });
+  }
+
+  updateRaceboardUrl(event: any) {
+    this.raceboardUrl = event.detail.value || '';
+    this.raceboard.setUrl(this.raceboardUrl);
   }
 
   async updateLanguage() {
