@@ -4,7 +4,7 @@ services:
     container_name: openlap-raceboard
     restart: unless-stopped
     networks:
-      - ${DOCKER_NETWORK}
+      - proxy
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=${DOCKER_NETWORK}"
@@ -14,5 +14,6 @@ services:
       - "traefik.http.services.openlap.loadbalancer.server.port=80"
 
 networks:
-  ${DOCKER_NETWORK}:
+  proxy:
     external: true
+    name: ${DOCKER_NETWORK}

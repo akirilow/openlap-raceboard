@@ -1,5 +1,6 @@
 .env
 CLAUDE.md
+docker-compose.prod.yml
 /.angular/cache
 .gradle/
 .sourcemaps/
