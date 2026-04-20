@@ -1,3 +1,9 @@
+2.7.1 2026-04-20
+----------------
+
+- Fix RaceBoard: configure Traefik labels for HTTPS with certresolver and docker network variable.
+
+
 2.7.0 2026-04-19
 ----------------
 
