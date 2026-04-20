@@ -1,6 +1,7 @@
 services:
   openlap:
     build: .
+    container_name: openlap-raceboard
     restart: unless-stopped
     networks:
       - proxy
